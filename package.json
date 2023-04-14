@@ -4,12 +4,16 @@
   "description": "This will help people to join my newsletter through a third party - Mailchimp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "build": "npm install && npm start"
   },
-  "author": "Huzaifa Ramza",
+  "author": "Huzaifa Ramzan",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "nodemon": "^2.0.20",
     "request": "^2.88.2"
