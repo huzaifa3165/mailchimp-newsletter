@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const { json } = require("body-parser");
+const axios = require("axios");
 require("dotenv").config();
 const app = express();
 const port = 3000;
@@ -29,27 +30,19 @@ app.post("/", function (req, res) {
     ],
   };
   let JSONData = JSON.stringify(data);
-  console.log(process.env.API_URL);
-  let options = {
-    url: process.env.API_URL,
-    method: "POST",
-    headers: {
-      Authorization: process.env.AUTH_TOKEN,
-    },
-    body: JSONData,
-  };
-  request(options, function (error, response, body) {
-    if (error) {
+  axios
+    .post(process.env.API_URL, JSONData, {
+      headers: {
+        Authorization: process.env.AUTH_TOKEN,
+      },
+    })
+    .then((response) => {
+      res.sendFile(__dirname + "/success.html");
+    })
+    .catch((error) => {
       console.log(error);
       res.sendFile(__dirname + "/failure.html");
-    } else {
-      if (response.statusCode == 200) {
-        res.sendFile(__dirname + "/success.html");
-      } else {
-        res.sendFile(__dirname + "/failure.html");
-      }
-    }
-  });
+    });
 });
 
 app.listen(process.env.PORT || 3000, function () {
